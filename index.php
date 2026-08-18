@@ -90,10 +90,10 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
             <aside class="side">
                 <section class="panel">
                     <h2>Anhänge</h2>
-                    <p class="hint">Maximal <?= (int) $config->maxAttachments() ?> Dateien, insgesamt <?= e(format_bytes($config->maxAttachmentBytes())) ?>.</p>
+                    <p class="hint">Maximal <?= (int) $config->maxAttachments() ?> Dateien, insgesamt <?= e(format_bytes($config->maxAttachmentBytes())) ?>. Jede Auswahl wird ergänzt, nicht ersetzt.</p>
                     <label class="file-btn">
-                        Dateien wählen
-                        <input id="attachments" name="attachments[]" type="file" multiple>
+                        Dateien hinzufügen
+                        <input id="attachments" name="attachments[]" type="file" multiple data-max-files="<?= (int) $config->maxAttachments() ?>" data-max-bytes="<?= (int) $config->maxAttachmentBytes() ?>">
                     </label>
                     <ul id="file-list" class="file-list"></ul>
                 </section>

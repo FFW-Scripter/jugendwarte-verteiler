@@ -268,10 +268,21 @@ input:focus,
 .file-list li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 0.6rem;
     padding: 0.4rem 0;
     border-bottom: 1px solid var(--line);
     font-size: 0.92rem;
+}
+
+.file-list button {
+    border: 0;
+    background: transparent;
+    color: var(--ember);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.15rem 0.2rem;
 }
 
 .recipients label {
