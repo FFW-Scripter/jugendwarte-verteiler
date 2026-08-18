@@ -35,6 +35,9 @@ return [
 
         // Sitzungsdauer nach Login in Sekunden (8 Stunden)
         'session_lifetime' => 8 * 3600,
+
+        // Zeitzone für Historie und Zeitstempel (PHP-Zeitzonen-ID)
+        'timezone' => 'Europe/Berlin',
     ],
 
     'smtp' => [

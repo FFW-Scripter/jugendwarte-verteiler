@@ -15,7 +15,7 @@ Interner Mail-Verteiler ohne Composer und ohne JavaScript-Bibliotheken. PHP 8.3 
 
 Apache braucht `mod_rewrite` nicht. Für verschlüsseltes SMTP muss PHP `openssl` laden; für die Typprüfung der Anhänge ist `fileinfo` sinnvoll.
 
-Der Ordner `data/` muss für den Webserver (`www-data`) beschreibbar sein, damit Empfänger gespeichert werden können:
+Der Ordner `data/` muss für den Webserver (`www-data`) beschreibbar sein, damit Empfänger und die Historie gespeichert werden können:
 
 ```bash
 cd /var/www/html/jugendwarte-verteiler
@@ -47,6 +47,7 @@ Bei selbstsignierten Zertifikaten kann `verify_peer` vorübergehend auf `false` 
 - Einzelne Adressen lassen sich vor dem Senden abwählen; es gehen nur gespeicherte Empfänger raus.
 - Empfänger hinzufügen, bearbeiten und entfernen: Seite **Empfänger** (`recipients.php`).
 - Beim Versand können Empfänger nach **Gruppen** ein- oder ausgeschlossen werden. Notizen sind nur in der Verwaltung sichtbar.
+- Unter **Historie** liegen gesendete Nachrichten mit Betreff, Text, Anhängen und Empfängerliste (`data/history/`).
 
 ## Anhänge
 

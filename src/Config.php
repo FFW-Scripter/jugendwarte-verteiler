@@ -55,6 +55,18 @@ final class Config
         return max(300, (int) ($this->data['app']['session_lifetime'] ?? 28800));
     }
 
+    public function timezone(): string
+    {
+        $timezone = trim((string) ($this->data['app']['timezone'] ?? 'Europe/Berlin'));
+        try {
+            new DateTimeZone($timezone);
+        } catch (Exception) {
+            return 'Europe/Berlin';
+        }
+
+        return $timezone;
+    }
+
     public function smtpHost(): string
     {
         return trim((string) ($this->data['smtp']['host'] ?? ''));

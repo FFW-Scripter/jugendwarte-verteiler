@@ -69,20 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
-    <header class="topbar">
-        <div class="brand">
-            <span class="brand-mark" aria-hidden="true"></span>
-            <div>
-                <p class="eyebrow">Interner Verteiler</p>
-                <h1>Empfänger verwalten</h1>
-                <p class="subtitle"><?= e($title) ?></p>
-            </div>
-        </div>
-        <div class="topbar-actions">
-            <a class="btn-ghost" href="index.php">Zurück zum Verteiler</a>
-            <a class="btn-ghost" href="logout.php">Abmelden</a>
-        </div>
-    </header>
+    <?php render_topbar('recipients', 'Empfänger verwalten', $title); ?>
 
     <main class="layout layout-single">
         <?php if ($flash): ?>
@@ -200,5 +187,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </datalist>
 
     <script src="assets/js/recipients.js"></script>
+    <script src="assets/js/smtp.js"></script>
 </body>
 </html>

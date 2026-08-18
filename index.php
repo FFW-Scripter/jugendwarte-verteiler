@@ -23,29 +23,12 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
-    <header class="topbar">
-        <div class="brand">
-            <span class="brand-mark" aria-hidden="true"></span>
-            <div>
-                <p class="eyebrow">Interner Verteiler</p>
-                <h1><?= e($title) ?></h1>
-                <?php if ($config->appSubtitle() !== ''): ?>
-                    <p class="subtitle"><?= e($config->appSubtitle()) ?></p>
-                <?php endif; ?>
-            </div>
-        </div>
-        <div class="topbar-actions">
-            <a class="btn-ghost" href="recipients.php">Empfänger</a>
-            <button type="button" class="btn-ghost" id="smtp-test" data-csrf="<?= e(Csrf::token()) ?>">SMTP prüfen</button>
-            <a class="btn-ghost" href="logout.php">Abmelden</a>
-        </div>
-    </header>
+    <?php render_topbar('compose', $title, $config->appSubtitle()); ?>
 
     <main class="layout">
         <?php if ($flash): ?>
             <p class="notice notice-<?= e($flash['type']) ?>" role="status"><?= e($flash['message']) ?></p>
         <?php endif; ?>
-        <p id="smtp-test-result" class="notice" hidden role="status"></p>
 
         <?php if ($config->isPlaceholderSmtp()): ?>
             <p class="notice notice-warn">SMTP und Absender sind noch Platzhalter. Bitte <code>config.php</code> ausfüllen, bevor Nachrichten rausgehen.</p>
@@ -136,6 +119,10 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
             </section>
 
             <aside class="side">
+                <button type="submit" class="btn-primary" <?= $recipients === [] ? 'disabled' : '' ?>>
+                    Nachricht senden
+                </button>
+
                 <section class="panel">
                     <h2>Empfänger (BCC)</h2>
                     <p class="hint">Jede Adresse geht nur als Blindkopie raus. Die Jugendwarte sehen sich gegenseitig nicht.</p>
@@ -190,15 +177,12 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
                         <?php endforeach; ?>
                     </div>
                 </section>
-
-                <button type="submit" class="btn-primary" <?= $recipients === [] ? 'disabled' : '' ?>>
-                    Nachricht senden
-                </button>
             </aside>
         </form>
     </main>
 
     <script src="assets/js/editor.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/smtp.js"></script>
 </body>
 </html>

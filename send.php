@@ -63,10 +63,31 @@ if ($config->signatureEnabled() && $config->signatureHtml() !== '') {
 
 $smtp = new SmtpClient($config);
 
+$loggedPeople = [];
+foreach ($recipientStore->all() as $person) {
+    $key = strtolower($person['email']);
+    if (isset($selected[$key])) {
+        $loggedPeople[] = [
+            'name' => $person['name'],
+            'email' => $person['email'],
+            'group' => $person['group'],
+        ];
+    }
+}
+
 try {
     $attachments = collect_attachments($config);
     $mailer = new Mailer($config, new MimeMessage(), $smtp);
     $mailer->send($subject, $html, array_values($selected), $attachments);
+    try {
+        $historyStore->add($subject, $html, $loggedPeople, $attachments);
+    } catch (Throwable $logError) {
+        error_log('Jugendwarte-Verteiler Historie: ' . $logError->getMessage());
+        unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
+        flash_set('warn', 'Nachricht wurde gesendet, konnte aber nicht in der Historie gespeichert werden: ' . $logError->getMessage());
+        header('Location: index.php');
+        exit;
+    }
 } catch (Throwable $e) {
     $message = $e->getMessage();
     if ($config->smtpDebug()) {

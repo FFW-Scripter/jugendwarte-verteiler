@@ -76,6 +76,17 @@ function format_bytes(int $bytes): string
     return $bytes . ' B';
 }
 
+function format_datetime(string $iso): string
+{
+    try {
+        $date = new DateTimeImmutable($iso);
+        $date = $date->setTimezone(new DateTimeZone(date_default_timezone_get()));
+        return $date->format('d.m.Y, H:i') . ' Uhr';
+    } catch (Exception) {
+        return $iso;
+    }
+}
+
 require_once __DIR__ . '/../src/Config.php';
 require_once __DIR__ . '/../src/Auth.php';
 require_once __DIR__ . '/../src/Csrf.php';
@@ -84,3 +95,5 @@ require_once __DIR__ . '/../src/MimeMessage.php';
 require_once __DIR__ . '/../src/SmtpClient.php';
 require_once __DIR__ . '/../src/Mailer.php';
 require_once __DIR__ . '/../src/RecipientStore.php';
+require_once __DIR__ . '/../src/HistoryStore.php';
+require_once __DIR__ . '/topbar.php';

@@ -34,6 +34,9 @@ try {
     exit;
 }
 
+date_default_timezone_set($config->timezone());
+
 $auth = new Auth($config);
 $recipientStore = new RecipientStore(__DIR__ . '/data/recipients.json', $config);
 $recipientStore->migrateFromConfigIfMissing();
+$historyStore = new HistoryStore(__DIR__ . '/data/history');
