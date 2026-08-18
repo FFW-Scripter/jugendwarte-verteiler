@@ -1,0 +1,402 @@
+:root {
+    --ink: #1c1712;
+    --muted: #5c5348;
+    --paper: #f3ead8;
+    --sheet: #fffaf1;
+    --line: #d8cbb3;
+    --ember: #9a1f14;
+    --ember-dark: #6f140e;
+    --gold: #b8892d;
+    --ok: #215c38;
+    --ok-bg: #e4f1e8;
+    --warn: #8a5a12;
+    --warn-bg: #f8edd8;
+    --err: #8c1d18;
+    --err-bg: #f8e4e1;
+    --shadow: 0 18px 40px rgba(48, 28, 12, 0.12);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    min-height: 100%;
+}
+
+body {
+    font-family: "Segoe UI", "Avenir Next", Calibri, sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at top left, rgba(184, 137, 45, 0.18), transparent 32%),
+        repeating-linear-gradient(
+            -18deg,
+            #efe4cf 0 2px,
+            #eadcbd 2px 4px
+        );
+}
+
+h1,
+h2 {
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.92em;
+}
+
+.topbar,
+.login-card,
+.panel {
+    background: var(--sheet);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.4rem;
+    border-top: 6px solid var(--ember);
+}
+
+.brand {
+    display: flex;
+    gap: 0.9rem;
+    align-items: center;
+}
+
+.brand-mark {
+    width: 2.4rem;
+    height: 2.4rem;
+    flex: 0 0 auto;
+    background:
+        linear-gradient(135deg, var(--ember) 50%, var(--gold) 50%);
+    clip-path: polygon(50% 0, 100% 28%, 82% 100%, 18% 100%, 0 28%);
+}
+
+.eyebrow {
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.7rem;
+    color: var(--ember);
+    font-weight: 700;
+}
+
+.subtitle,
+.lede,
+.hint,
+small {
+    color: var(--muted);
+}
+
+.subtitle,
+.lede {
+    margin: 0.2rem 0 0;
+}
+
+.layout {
+    width: min(1120px, calc(100% - 2rem));
+    margin: 1.4rem auto 3rem;
+}
+
+.compose {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(16rem, 0.9fr);
+    gap: 1rem;
+    align-items: start;
+}
+
+.panel {
+    padding: 1.1rem 1.15rem 1.25rem;
+}
+
+.panel h2 {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+}
+
+label,
+.editor-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 0.85rem 0 0.35rem;
+    font-weight: 700;
+}
+
+.editor-label {
+    align-items: baseline;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    border: 1px solid #c9bba3;
+    background: #fff;
+    color: var(--ink);
+    padding: 0.7rem 0.75rem;
+    font: inherit;
+}
+
+input:focus,
+.editor:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: 1px;
+}
+
+.editor-shell {
+    border: 1px solid #c9bba3;
+    background: #fff;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    padding: 0.45rem;
+    border-bottom: 1px solid var(--line);
+    background: #f7f0e3;
+}
+
+.toolbar button {
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--ink);
+    min-height: 2rem;
+    padding: 0 0.55rem;
+    font: inherit;
+    cursor: pointer;
+}
+
+.toolbar button:hover,
+.toolbar button:focus-visible {
+    border-color: var(--gold);
+    background: #fff;
+}
+
+.toolbar .u {
+    text-decoration: underline;
+}
+
+.editor {
+    min-height: 18rem;
+    padding: 0.9rem 1rem 1.2rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1.05rem;
+    line-height: 1.55;
+}
+
+.editor:empty::before {
+    content: attr(data-placeholder);
+    color: #8a8072;
+}
+
+.signature {
+    margin-top: 1rem;
+    border-top: 1px dashed var(--line);
+    padding-top: 0.7rem;
+}
+
+.signature summary {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.signature-body {
+    margin-top: 0.6rem;
+    padding: 0.7rem 0.8rem;
+    background: #f7f0e3;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+.side {
+    display: grid;
+    gap: 1rem;
+}
+
+.file-btn,
+.btn-primary,
+.btn-ghost {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.file-btn {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 0.6rem;
+    padding: 0.65rem;
+    border: 1px dashed var(--gold);
+    background: #fff8ea;
+    color: var(--ember-dark);
+}
+
+.file-btn input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.file-list,
+.recipients {
+    list-style: none;
+    margin: 0.7rem 0 0;
+    padding: 0;
+}
+
+.file-list li,
+.recipients li {
+    margin: 0 0 0.35rem;
+}
+
+.file-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.92rem;
+}
+
+.recipients label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-weight: 500;
+    margin: 0;
+    padding: 0.35rem 0;
+}
+
+.recipients small {
+    display: block;
+}
+
+.topbar-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.recipient-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    margin-top: 0.7rem;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid var(--line);
+}
+
+.toggle-all {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+.count {
+    margin: 0;
+    font-weight: 700;
+}
+
+.btn-primary {
+    width: 100%;
+    border: 0;
+    background: var(--ember);
+    color: #fff8ea;
+    padding: 0.85rem 1rem;
+    letter-spacing: 0.02em;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    background: var(--ember-dark);
+}
+
+.btn-primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.btn-ghost:disabled {
+    opacity: 0.55;
+    cursor: wait;
+}
+
+.notice {
+    margin: 0 0 1rem;
+    padding: 0.8rem 0.9rem;
+    border-left: 5px solid currentColor;
+}
+
+.notice-ok {
+    background: var(--ok-bg);
+    color: var(--ok);
+}
+
+.notice-warn {
+    background: var(--warn-bg);
+    color: var(--warn);
+}
+
+.notice-error {
+    background: var(--err-bg);
+    color: var(--err);
+}
+
+.page-login {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 1.5rem;
+}
+
+.login-card {
+    width: min(28rem, 100%);
+    padding: 1.5rem 1.4rem 1.6rem;
+    border-top: 6px solid var(--ember);
+}
+
+.login-card .lede {
+    margin: 0.9rem 0 1rem;
+}
+
+.login-card .btn-primary {
+    margin-top: 1rem;
+}
+
+@media (max-width: 860px) {
+    .compose,
+    .topbar {
+        grid-template-columns: 1fr;
+        display: grid;
+    }
+
+    .topbar {
+        align-items: start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
