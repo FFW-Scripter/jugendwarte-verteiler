@@ -5,7 +5,7 @@ declare(strict_types=1);
 require __DIR__ . '/bootstrap.php';
 $auth->requireLogin();
 
-$recipients = $config->recipients();
+$recipients = $recipientStore->all();
 $flash = flash_take();
 $signatureHtml = $config->signatureEnabled() ? $config->signatureHtml() : '';
 $title = $config->appTitle();
@@ -34,6 +34,7 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
             </div>
         </div>
         <div class="topbar-actions">
+            <a class="btn-ghost" href="recipients.php">Empfänger</a>
             <button type="button" class="btn-ghost" id="smtp-test" data-csrf="<?= e(Csrf::token()) ?>">SMTP prüfen</button>
             <a class="btn-ghost" href="logout.php">Abmelden</a>
         </div>
@@ -50,7 +51,7 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
         <?php endif; ?>
 
         <?php if ($recipients === []): ?>
-            <p class="notice notice-error">In der <code>config.php</code> sind noch keine gültigen Empfänger hinterlegt.</p>
+            <p class="notice notice-error">Es sind noch keine Empfänger hinterlegt. Bitte zuerst unter <a href="recipients.php">Empfänger</a> welche anlegen.</p>
         <?php endif; ?>
 
         <form id="compose-form" class="compose" method="post" action="send.php" enctype="multipart/form-data">
@@ -90,7 +91,7 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
             <aside class="side">
                 <section class="panel">
                     <h2>Anhänge</h2>
-                    <p class="hint">Maximal <?= (int) $config->maxAttachments() ?> Dateien, insgesamt <?= e(format_bytes($config->maxAttachmentBytes())) ?>. Jede Auswahl wird ergänzt, nicht ersetzt.</p>
+                    <p class="hint">Maximal <?= (int) $config->maxAttachments() ?> Dateien, insgesamt <?= e(format_bytes($config->maxAttachmentBytes())) ?>.</p>
                     <label class="file-btn">
                         Dateien hinzufügen
                         <input id="attachments" name="attachments[]" type="file" multiple data-max-files="<?= (int) $config->maxAttachments() ?>" data-max-bytes="<?= (int) $config->maxAttachmentBytes() ?>">

@@ -137,7 +137,7 @@ final class Config
     /**
      * @return list<array{name: string, email: string}>
      */
-    public function recipients(): array
+    public function legacyRecipients(): array
     {
         $out = [];
         $seen = [];

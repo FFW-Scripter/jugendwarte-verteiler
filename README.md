@@ -9,9 +9,9 @@ Interner Mail-Verteiler ohne Composer und ohne JavaScript-Bibliotheken. PHP 8.3 
    - `app.password` — Zugang zur Oberfläche (nicht den Platzhalter `bitte-aendern` lassen)
    - `smtp.*` — Host, Port, Verschlüsselung, Benutzername, Passwort
    - `mail.from_email` / `mail.from_name` — sichtbare Absenderadresse
-   - `recipients` — Namen und Adressen der Jugendwarte
    - `signature.html` — Standardsignatur unter jeder Nachricht
 3. Aufruf im Browser: `http://localhost/jugendwarte-verteiler/`
+4. Empfänger unter **Empfänger** in der Oberfläche pflegen (gespeichert in `data/recipients.json`).
 
 Apache braucht `mod_rewrite` nicht. Für verschlüsseltes SMTP muss PHP `openssl` laden; für die Typprüfung der Anhänge ist `fileinfo` sinnvoll.
 
@@ -29,7 +29,8 @@ Bei selbstsignierten Zertifikaten kann `verify_peer` vorübergehend auf `false` 
 
 - Das sichtbare An-Feld kommt aus `mail.to_name` / `mail.to_email`.
 - Die eigentlichen Empfänger stehen nur im Umschlag als BCC. Sie sehen sich gegenseitig nicht.
-- Einzelne Adressen lassen sich vor dem Senden abwählen; es gehen nur Adressen aus der Config raus.
+- Einzelne Adressen lassen sich vor dem Senden abwählen; es gehen nur gespeicherte Empfänger raus.
+- Empfänger hinzufügen, bearbeiten und entfernen: Seite **Empfänger** (`recipients.php`).
 
 ## Anhänge
 

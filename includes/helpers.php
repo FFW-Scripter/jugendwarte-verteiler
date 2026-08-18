@@ -79,3 +79,4 @@ require_once __DIR__ . '/../src/HtmlSanitizer.php';
 require_once __DIR__ . '/../src/MimeMessage.php';
 require_once __DIR__ . '/../src/SmtpClient.php';
 require_once __DIR__ . '/../src/Mailer.php';
+require_once __DIR__ . '/../src/RecipientStore.php';

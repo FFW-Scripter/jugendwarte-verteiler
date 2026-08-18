@@ -1,3 +1,4 @@
 config.php
+data/recipients.json
 .DS_Store
 *.log

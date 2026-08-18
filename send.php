@@ -38,7 +38,7 @@ if ($plainBody === '') {
 }
 
 $allowed = [];
-foreach ($config->recipients() as $person) {
+foreach ($recipientStore->all() as $person) {
     $allowed[strtolower($person['email'])] = $person['email'];
 }
 

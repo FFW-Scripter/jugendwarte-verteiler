@@ -35,3 +35,5 @@ try {
 }
 
 $auth = new Auth($config);
+$recipientStore = new RecipientStore(__DIR__ . '/data/recipients.json', $config);
+$recipientStore->migrateFromConfigIfMissing();
