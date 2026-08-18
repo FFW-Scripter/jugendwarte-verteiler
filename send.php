@@ -31,7 +31,7 @@ if ($subject === '') {
     exit;
 }
 
-if ($plainBody === '') {
+if ($plainBody === '' && !str_contains($body, '<img')) {
     flash_set('error', 'Bitte eine Nachricht schreiben.');
     header('Location: index.php');
     exit;

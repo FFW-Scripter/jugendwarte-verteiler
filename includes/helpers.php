@@ -28,6 +28,10 @@ const ALLOWED_ATTACHMENT_EXTENSIONS = [
     'jpg', 'jpeg', 'png', 'gif', 'webp', 'txt', 'csv',
 ];
 
+const MAX_INLINE_IMAGES = 6;
+const MAX_INLINE_IMAGE_BYTES = 512 * 1024;
+const MAX_INLINE_IMAGES_TOTAL_BYTES = 2 * 1024 * 1024;
+
 function e(string $value): string
 {
     return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
@@ -38,7 +42,7 @@ function send_security_headers(): void
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');
     header('Referrer-Policy: no-referrer');
-    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; base-uri 'none'; form-action 'self'");
+    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'self'");
 }
 
 function flash_set(string $type, string $message): void

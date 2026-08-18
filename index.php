@@ -65,19 +65,55 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
 
                 <div class="editor-label">
                     <span>Nachricht</span>
-                    <span class="hint">Formatierung über die Leiste. Die Signatur wird automatisch angehängt.</span>
                 </div>
                 <div class="editor-shell">
-                    <div id="toolbar" class="toolbar" role="toolbar" aria-label="Textformatierung">
-                        <button type="button" data-cmd="bold" title="Fett"><strong>B</strong></button>
-                        <button type="button" data-cmd="italic" title="Kursiv"><em>I</em></button>
-                        <button type="button" data-cmd="underline" title="Unterstrichen"><span class="u">U</span></button>
-                        <button type="button" data-cmd="insertUnorderedList" title="Aufzählung">• Liste</button>
-                        <button type="button" data-cmd="insertOrderedList" title="Nummerierung">1. Liste</button>
-                        <button type="button" data-cmd="formatBlock" data-value="h2" title="Überschrift">H2</button>
-                        <button type="button" data-cmd="createLink" title="Link">Link</button>
-                        <button type="button" data-cmd="removeFormat" title="Formatierung entfernen">↺</button>
+                    <div class="toolbar-wrap">
+                        <div id="toolbar" class="toolbar" role="toolbar" aria-label="Textformatierung">
+                            <div class="toolbar-group">
+                                <button type="button" data-cmd="bold" title="Fett"><strong>B</strong></button>
+                                <button type="button" data-cmd="italic" title="Kursiv"><em>I</em></button>
+                                <button type="button" data-cmd="underline" title="Unterstrichen"><span class="u">U</span></button>
+                                <button type="button" data-cmd="strikeThrough" title="Durchgestrichen"><span class="strike">S</span></button>
+                            </div>
+                            <span class="toolbar-sep" aria-hidden="true"></span>
+                            <div class="toolbar-group">
+                                <button type="button" data-cmd="insertUnorderedList" title="Aufzählung">• Liste</button>
+                                <button type="button" data-cmd="insertOrderedList" title="Nummerierung">1. Liste</button>
+                                <button type="button" data-cmd="formatBlock" data-value="h2" title="Überschrift H2">H2</button>
+                                <button type="button" data-cmd="formatBlock" data-value="h3" title="Überschrift H3">H3</button>
+                                <button type="button" data-cmd="formatBlock" data-value="blockquote" title="Zitat">„ Zitat</button>
+                                <button type="button" data-cmd="insertHorizontalRule" title="Linie">—</button>
+                            </div>
+                            <span class="toolbar-sep" aria-hidden="true"></span>
+                            <div class="toolbar-group">
+                                <button type="button" data-cmd="justifyLeft" title="Links">≡ Links</button>
+                                <button type="button" data-cmd="justifyCenter" title="Zentriert">≡ Mitte</button>
+                                <button type="button" data-cmd="justifyRight" title="Rechts">≡ Rechts</button>
+                            </div>
+                            <span class="toolbar-sep" aria-hidden="true"></span>
+                            <div class="toolbar-group">
+                                <button type="button" data-cmd="createLink" title="Link">Link</button>
+                                <button type="button" id="editor-image-btn" title="Bild einfügen">Bild</button>
+                                <button type="button" id="editor-emoji-btn" title="Emoji einfügen" aria-expanded="false" aria-controls="emoji-panel">😀</button>
+                                <label class="toolbar-color" title="Textfarbe">
+                                    <span>A</span>
+                                    <input type="color" id="editor-fore-color" value="#9a1f14">
+                                </label>
+                                <label class="toolbar-color toolbar-color-mark" title="Markierung">
+                                    <span>M</span>
+                                    <input type="color" id="editor-back-color" value="#f8edd8">
+                                </label>
+                            </div>
+                            <span class="toolbar-sep" aria-hidden="true"></span>
+                            <div class="toolbar-group">
+                                <button type="button" data-cmd="undo" title="Rückgängig">↶</button>
+                                <button type="button" data-cmd="redo" title="Wiederholen">↷</button>
+                                <button type="button" data-cmd="removeFormat" title="Formatierung entfernen">↺</button>
+                            </div>
+                        </div>
+                        <div id="emoji-panel" class="emoji-panel" hidden role="dialog" aria-label="Emoji auswählen"></div>
                     </div>
+                    <input id="editor-image-input" type="file" accept="image/jpeg,image/png,image/gif,image/webp" hidden>
                     <div id="editor" class="editor" contenteditable="true" role="textbox" aria-label="Nachricht" data-placeholder="Nachricht an die Jugendwarte schreiben …"></div>
                 </div>
 
@@ -87,10 +123,8 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
                         <div class="signature-body"><?= $signatureHtml ?></div>
                     </details>
                 <?php endif; ?>
-            </section>
 
-            <aside class="side">
-                <section class="panel">
+                <section class="attachments-block">
                     <h2>Anhänge</h2>
                     <p class="hint">Maximal <?= (int) $config->maxAttachments() ?> Dateien, insgesamt <?= e(format_bytes($config->maxAttachmentBytes())) ?>.</p>
                     <label class="file-btn">
@@ -99,7 +133,9 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
                     </label>
                     <ul id="file-list" class="file-list"></ul>
                 </section>
+            </section>
 
+            <aside class="side">
                 <section class="panel">
                     <h2>Empfänger (BCC)</h2>
                     <p class="hint">Jede Adresse geht nur als Blindkopie raus. Die Jugendwarte sehen sich gegenseitig nicht.</p>

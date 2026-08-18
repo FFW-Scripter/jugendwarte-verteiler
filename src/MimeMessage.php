@@ -162,6 +162,8 @@ final class MimeMessage
             . "<style>\r\n"
             . "body { font-family: Georgia, Times, serif; font-size: 16px;\r\n"
             . "line-height: 1.55; color: #1b1b1b; }\r\n"
+            . ".inline-image { max-width: 100%; height: auto; display: block; margin: 0.5rem 0; }\r\n"
+            . "blockquote { margin: 0.6rem 0; padding: 0.35rem 0.8rem; border-left: 4px solid #b8892d; color: #5c5348; }\r\n"
             . "</style>\r\n"
             . "</head>\r\n"
             . "<body>\r\n"
