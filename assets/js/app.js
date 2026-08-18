@@ -4,10 +4,33 @@
     const fileList = document.getElementById('file-list');
     const selectedCount = document.getElementById('selected-count');
     const recipientBoxes = document.querySelectorAll('input[name="recipients[]"]');
+    const groupToggles = document.querySelectorAll('.toggle-group');
     const toggleAll = document.getElementById('toggle-recipients');
     const smtpButton = document.getElementById('smtp-test');
     const smtpResult = document.getElementById('smtp-test-result');
     const attachedFiles = [];
+
+    function boxesForGroup(groupName) {
+        return Array.from(recipientBoxes).filter(function (box) {
+            return box.getAttribute('data-group') === groupName;
+        });
+    }
+
+    function refreshGroupToggles() {
+        groupToggles.forEach(function (toggle) {
+            const boxes = boxesForGroup(toggle.getAttribute('data-group') || '');
+            if (boxes.length === 0) {
+                return;
+            }
+
+            const checkedCount = boxes.filter(function (box) {
+                return box.checked;
+            }).length;
+
+            toggle.checked = checkedCount === boxes.length;
+            toggle.indeterminate = checkedCount > 0 && checkedCount < boxes.length;
+        });
+    }
 
     function refreshCount() {
         let count = 0;
@@ -25,6 +48,8 @@
             toggleAll.checked = count === recipientBoxes.length && recipientBoxes.length > 0;
             toggleAll.indeterminate = count > 0 && count < recipientBoxes.length;
         }
+
+        refreshGroupToggles();
     }
 
     function formatSize(bytes) {
@@ -89,6 +114,16 @@
             refreshCount();
         });
     }
+
+    groupToggles.forEach(function (toggle) {
+        toggle.addEventListener('change', function () {
+            const checked = toggle.checked;
+            boxesForGroup(toggle.getAttribute('data-group') || '').forEach(function (box) {
+                box.checked = checked;
+            });
+            refreshCount();
+        });
+    });
 
     recipientBoxes.forEach(function (box) {
         box.addEventListener('change', refreshCount);

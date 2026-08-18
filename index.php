@@ -6,6 +6,7 @@ require __DIR__ . '/bootstrap.php';
 $auth->requireLogin();
 
 $recipients = $recipientStore->all();
+$groupedRecipients = $recipientStore->grouped();
 $flash = flash_take();
 $signatureHtml = $config->signatureEnabled() ? $config->signatureHtml() : '';
 $title = $config->appTitle();
@@ -103,27 +104,55 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
                     <h2>Empfänger (BCC)</h2>
                     <p class="hint">Jede Adresse geht nur als Blindkopie raus. Die Jugendwarte sehen sich gegenseitig nicht.</p>
                     <div class="recipient-toolbar">
-                        <label class="toggle-all">
-                            <input type="checkbox" id="toggle-recipients" checked>
+                        <label class="toggle-all choice-control">
+                            <input type="checkbox" id="toggle-recipients" class="choice-checkbox" checked>
+                            <span class="choice-box" aria-hidden="true"></span>
                             <span>Alle auswählen</span>
                         </label>
                         <p class="count"><span id="selected-count"><?= count($recipients) ?></span> von <?= count($recipients) ?> ausgewählt</p>
                     </div>
-                    <ul class="recipients">
-                        <?php foreach ($recipients as $person): ?>
-                            <li>
-                                <label>
-                                    <input type="checkbox" name="recipients[]" value="<?= e($person['email']) ?>" checked>
-                                    <span>
-                                        <strong><?= e($person['name'] !== '' ? $person['name'] : $person['email']) ?></strong>
-                                        <?php if ($person['name'] !== ''): ?>
-                                            <small><?= e($person['email']) ?></small>
-                                        <?php endif; ?>
+                    <div class="recipients-by-group">
+                        <?php foreach ($groupedRecipients as $groupLabel => $people): ?>
+                            <section class="recipient-group-block">
+                                <label class="recipient-group-title choice-control group-header-toggle">
+                                    <input
+                                        type="checkbox"
+                                        class="toggle-group choice-checkbox"
+                                        data-group="<?= e($groupLabel) ?>"
+                                        checked
+                                    >
+                                    <span class="choice-box" aria-hidden="true"></span>
+                                    <span class="group-title-text">
+                                        <span class="group-badge"><?= e($groupLabel) ?></span>
+                                        <span class="hint"><?= count($people) ?> Empfänger</span>
                                     </span>
                                 </label>
-                            </li>
+                                <ul class="recipients">
+                                    <?php foreach ($people as $person): ?>
+                                        <li>
+                                            <label class="recipient-choice choice-control">
+                                                <input
+                                                    type="checkbox"
+                                                    class="choice-checkbox"
+                                                    name="recipients[]"
+                                                    value="<?= e($person['email']) ?>"
+                                                    data-group="<?= e($groupLabel) ?>"
+                                                    checked
+                                                >
+                                                <span class="choice-box" aria-hidden="true"></span>
+                                                <span class="recipient-choice-text">
+                                                    <strong><?= e($person['name'] !== '' ? $person['name'] : $person['email']) ?></strong>
+                                                    <?php if ($person['name'] !== ''): ?>
+                                                        <small><?= e($person['email']) ?></small>
+                                                    <?php endif; ?>
+                                                </span>
+                                            </label>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </section>
                         <?php endforeach; ?>
-                    </ul>
+                    </div>
                 </section>
 
                 <button type="submit" class="btn-primary" <?= $recipients === [] ? 'disabled' : '' ?>>

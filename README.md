@@ -11,9 +11,24 @@ Interner Mail-Verteiler ohne Composer und ohne JavaScript-Bibliotheken. PHP 8.3 
    - `mail.from_email` / `mail.from_name` — sichtbare Absenderadresse
    - `signature.html` — Standardsignatur unter jeder Nachricht
 3. Aufruf im Browser: `http://localhost/jugendwarte-verteiler/`
-4. Empfänger unter **Empfänger** in der Oberfläche pflegen (gespeichert in `data/recipients.json`).
+4. Empfänger unter **Empfänger** in der Oberfläche pflegen (gespeichert in `data/recipients.json`, mit Gruppe und interner Notiz).
 
 Apache braucht `mod_rewrite` nicht. Für verschlüsseltes SMTP muss PHP `openssl` laden; für die Typprüfung der Anhänge ist `fileinfo` sinnvoll.
+
+Der Ordner `data/` muss für den Webserver (`www-data`) beschreibbar sein, damit Empfänger gespeichert werden können:
+
+```bash
+cd /var/www/html/jugendwarte-verteiler
+sudo setfacl -m u:www-data:rwx data
+sudo setfacl -d -m u:www-data:rwx data
+sudo setfacl -m u:www-data:rw data/recipients.json
+```
+
+Alternative ohne ACL:
+
+```bash
+sudo chown -R www-data:www-data data
+```
 
 ## SMTP-Hinweise
 
@@ -31,6 +46,7 @@ Bei selbstsignierten Zertifikaten kann `verify_peer` vorübergehend auf `false` 
 - Die eigentlichen Empfänger stehen nur im Umschlag als BCC. Sie sehen sich gegenseitig nicht.
 - Einzelne Adressen lassen sich vor dem Senden abwählen; es gehen nur gespeicherte Empfänger raus.
 - Empfänger hinzufügen, bearbeiten und entfernen: Seite **Empfänger** (`recipients.php`).
+- Beim Versand können Empfänger nach **Gruppen** ein- oder ausgeschlossen werden. Notizen sind nur in der Verwaltung sichtbar.
 
 ## Anhänge
 
