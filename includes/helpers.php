@@ -87,6 +87,19 @@ function format_datetime(string $iso): string
     }
 }
 
+function render_head_meta(): void
+{
+    ?>
+    <meta name="theme-color" content="#9a1f14">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192">
+    <link rel="apple-touch-icon" href="assets/icon-192.png">
+    <link rel="manifest" href="manifest.json">
+    <?php
+}
+
 require_once __DIR__ . '/../src/Config.php';
 require_once __DIR__ . '/../src/Auth.php';
 require_once __DIR__ . '/../src/Csrf.php';

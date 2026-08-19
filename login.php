@@ -31,6 +31,7 @@ $title = $config->appTitle();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Anmelden · <?= e($title) ?></title>
+    <?php render_head_meta(); ?>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class="page-login">

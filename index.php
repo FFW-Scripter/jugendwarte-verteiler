@@ -20,6 +20,7 @@ unset($_SESSION['draft_subject'], $_SESSION['draft_body']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= e($title) ?></title>
+    <?php render_head_meta(); ?>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>

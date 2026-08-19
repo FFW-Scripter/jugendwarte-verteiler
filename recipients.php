@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Empfänger verwalten · <?= e($title) ?></title>
+    <?php render_head_meta(); ?>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>

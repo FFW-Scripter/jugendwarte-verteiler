@@ -23,6 +23,7 @@ if ($id !== '' && $entry === null) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $entry ? 'Nachricht vom ' . e(format_datetime($entry['sent_at'])) : 'Historie' ?> · <?= e($title) ?></title>
+    <?php render_head_meta(); ?>
     <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body>
