@@ -1,0 +1,7 @@
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(svg|png|ico)$">
+        Satisfy Any
+        Allow from all
+        Require all granted
+    </FilesMatch>
+</IfModule>
