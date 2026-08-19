@@ -42,7 +42,7 @@ function send_security_headers(): void
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');
     header('Referrer-Policy: no-referrer');
-    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'none'; form-action 'self'");
+    header("Content-Security-Policy: default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; manifest-src data:; base-uri 'none'; form-action 'self'");
 }
 
 function flash_set(string $type, string $message): void
@@ -107,7 +107,7 @@ function render_head_meta(): void
     $manifestDataUri = 'data:application/manifest+json;charset=utf-8,' . rawurlencode($manifestJson);
     ?>
     <meta name="theme-color" content="#9a1f14">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192">
