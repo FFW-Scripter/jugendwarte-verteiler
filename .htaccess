@@ -8,6 +8,11 @@ DirectoryIndex index.php
     <Files "config.example.php">
         Require all denied
     </Files>
+    <FilesMatch "^manifest\.json$">
+        Satisfy Any
+        Allow from all
+        Require all granted
+    </FilesMatch>
 </IfModule>
 
 <IfModule mod_headers.c>

@@ -89,6 +89,22 @@ function format_datetime(string $iso): string
 
 function render_head_meta(): void
 {
+    $manifest = [
+        'name' => 'Jugendwarte-Verteiler',
+        'short_name' => 'Verteiler',
+        'description' => 'Interner Mail-Verteiler für die Jugendwarte',
+        'start_url' => 'index.php',
+        'display' => 'standalone',
+        'background_color' => '#f3ead8',
+        'theme_color' => '#9a1f14',
+        'icons' => [
+            ['src' => 'assets/favicon.svg', 'type' => 'image/svg+xml', 'sizes' => 'any'],
+            ['src' => 'assets/icon-192.png', 'type' => 'image/png', 'sizes' => '192x192'],
+            ['src' => 'assets/icon-512.png', 'type' => 'image/png', 'sizes' => '512x512'],
+        ],
+    ];
+    $manifestJson = json_encode($manifest, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    $manifestDataUri = 'data:application/manifest+json;charset=utf-8,' . rawurlencode($manifestJson);
     ?>
     <meta name="theme-color" content="#9a1f14">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -96,7 +112,7 @@ function render_head_meta(): void
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192">
     <link rel="apple-touch-icon" href="assets/icon-192.png">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="<?= $manifestDataUri ?>">
     <?php
 }
 
